@@ -1,0 +1,51 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define gradients -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2196F3;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E91E63;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9C27B0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E91E63;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer petals (8 petals in a circle) -->
+  <!-- Petal 1 - Top -->
+  <path d="M 100 20 Q 120 50, 115 100 Q 100 90, 100 80 Q 100 50, 100 20" fill="url(#grad1)" opacity="0.9"/>
+  
+  <!-- Petal 2 - Top-Right -->
+  <path d="M 142 35 Q 150 65, 135 105 Q 125 95, 120 85 Q 135 55, 142 35" fill="url(#grad2)" opacity="0.9"/>
+  
+  <!-- Petal 3 - Right -->
+  <path d="M 180 100 Q 150 120, 105 115 Q 115 100, 125 95 Q 155 100, 180 100" fill="url(#grad1)" opacity="0.9"/>
+  
+  <!-- Petal 4 - Bottom-Right -->
+  <path d="M 158 165 Q 130 155, 110 125 Q 120 130, 130 135 Q 150 150, 158 165" fill="url(#grad2)" opacity="0.9"/>
+  
+  <!-- Petal 5 - Bottom -->
+  <path d="M 100 180 Q 80 150, 85 100 Q 100 110, 100 120 Q 100 150, 100 180" fill="url(#grad1)" opacity="0.9"/>
+  
+  <!-- Petal 6 - Bottom-Left -->
+  <path d="M 58 165 Q 50 135, 65 95 Q 75 105, 80 115 Q 65 150, 58 165" fill="url(#grad2)" opacity="0.9"/>
+  
+  <!-- Petal 7 - Left -->
+  <path d="M 20 100 Q 50 80, 95 85 Q 85 100, 75 105 Q 45 100, 20 100" fill="url(#grad1)" opacity="0.9"/>
+  
+  <!-- Petal 8 - Top-Left -->
+  <path d="M 42 35 Q 70 45, 85 75 Q 75 65, 65 55 Q 55 45, 42 35" fill="url(#grad2)" opacity="0.9"/>
+  
+  <!-- Center circle with gradient -->
+  <circle cx="100" cy="100" r="35" fill="url(#grad3)" opacity="0.95"/>
+  
+  <!-- Inner highlight circle -->
+  <circle cx="100" cy="100" r="25" fill="white" opacity="0.15"/>
+  
+  <!-- Center dot -->
+  <circle cx="100" cy="100" r="8" fill="white" opacity="0.6"/>
+</svg>
