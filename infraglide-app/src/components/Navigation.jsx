@@ -23,9 +23,9 @@ export default function Navigation() {
 
           {/* Navigation Links */}
           <div className="flex gap-8 items-center">
-            <a href="/#features" className="text-gray-700 hover:text-blue-500 transition">Features</a>
-            <a href="/#how-it-works" className="text-gray-700 hover:text-blue-500 transition">How It Works</a>
-            <a href="/#pricing" className="text-gray-700 hover:text-blue-500 transition">Pricing</a>
+            <Link to="/#features" className="text-gray-700 hover:text-blue-500 transition">Features</Link>
+            <Link to="/#how-it-works" className="text-gray-700 hover:text-blue-500 transition">How It Works</Link>
+            <Link to="/#pricing" className="text-gray-700 hover:text-blue-500 transition">Pricing</Link>
             <Link to="/docs" className="text-gray-700 hover:text-blue-500 transition">Docs</Link>
           </div>
         </div>

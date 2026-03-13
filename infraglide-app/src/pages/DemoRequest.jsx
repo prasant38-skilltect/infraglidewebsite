@@ -295,7 +295,7 @@ export default function DemoRequest() {
             },
             {
               text: 'Amazing product and fantastic demo session. Highly recommended!',
-              author: 'Emily Davis',
+              author: 'XXXX-XXXX',
               role: 'DevOps Engineer at DataFlow Systems'
             }
           ].map((testimonial, i) => (
