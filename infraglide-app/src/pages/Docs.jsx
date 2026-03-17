@@ -1,57 +1,433 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ReactMarkdown from 'react-markdown';
 
 const docSections = [
   {
     id: 'getting-started',
     title: 'Getting Started',
     subsections: [
-      { id: 'intro', title: 'Introduction', content: 'Welcome to Infraglide documentation. Learn the basics of infrastructure management and get started with deploying your first application.' },
-      { id: 'quickstart', title: 'Quick Start', content: 'Get up and running in 5 minutes. Follow our quick start guide to deploy your first infrastructure.' },
-      { id: 'install', title: 'Installation', content: 'Install Infraglide CLI and set up your environment. Requires Node.js 14+ and npm 6+.' },
-      { id: 'setup', title: 'Initial Setup', content: 'Configure your cloud accounts, set up authentication, and configure your first project.' }
+      { id: 'dashboard', title: 'Dashboard & Analytics', content: `# Dashboard & Analytics
+
+## Overview
+Access your dashboard to view real-time analytics, monitoring, and insights into your infrastructure performance.
+
+### Key Features
+
+- **Real-time Monitoring**: Track your infrastructure metrics as they happen
+- **Custom Dashboards**: Create dashboards tailored to your needs
+- **Performance Metrics**: CPU, memory, disk usage, and network throughput
+- **Alert Management**: Set up alerts and get notifications
+
+## Getting Started
+
+1. Log into your Infraglide account
+2. Navigate to the Dashboard from the main menu
+3. Click **Create Dashboard** to start creating your custom view
+4. Add widgets by clicking the **+** button
+
+![Dashboard Example](/api/placeholder/800/400)
+
+### Best Practices
+
+> Remember: More metrics don't always mean better insights. Focus on KPIs that matter to your infrastructure.
+
+For more information on advanced analytics, see the [Advanced Metrics](#) section.` },
+      { id: 'provisioning', title: 'Provisioning Engine (Terraform)', content: `## Terraform Integration
+
+Infraglide provides seamless integration with Terraform for **Infrastructure as Code** management.
+
+### Why Use Terraform?
+
+- **Declarative Configuration**: Define your infrastructure in code
+- **Version Control**: Track all infrastructure changes in git
+- **Reusability**: Create templates for common deployments
+- **Multi-Cloud Support**: Manage AWS, Azure, GCP resources with one tool
+
+### Getting Started with Terraform
+
+1. Install Terraform on your machine
+2. Create a \`.tf\` file with your infrastructure definition
+3. Connect your cloud provider credentials
+4. Deploy using \`terraform apply\`
+
+### Example Terraform Configuration
+
+\`\`\`hcl
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+  
+  tags = {
+    Name = "infraglide-instance"
+  }
+}
+
+resource "aws_s3_bucket" "data_bucket" {
+  bucket = "my-data-bucket"
+  
+  versioning {
+    enabled = true
+  }
+}
+\`\`\`
+
+> **Important**: Always review terraform plans before applying to production environments.
+
+### Best Practices
+
+- ✅ Use remote state storage (S3, Azure Storage)
+- ✅ Implement variable files for different environments
+- ✅ Use Terraform modules for code organization
+- ✅ Keep credentials in environment variables or secret managers
+- ✅ Document your infrastructure code thoroughly
+
+For detailed Terraform documentation, visit [terraform.io](https://terraform.io)` },
+      { id: 'pipeline-mgmt', title: 'Pipeline Management', content: `## Pipeline Management
+
+Manage your deployment pipelines efficiently with Infraglide's intuitive pipeline management system.
+
+### Core Concepts
+
+| Term | Definition |
+|------|-----------|
+| **Pipeline** | A series of automated steps to build and deploy infrastructure |
+| **Stage** | A distinct phase in the deployment process |
+| **Artifact** | Output from a pipeline stage |
+| **Trigger** | An event that starts the pipeline |
+
+### Creating Pipelines
+
+1. Navigate to **Pipelines** section
+2. Click **New Pipeline**
+3. Define stages and steps
+4. Add actions between stages
+5. Test and deploy
+
+### Pipeline Stages
+
+- **Build**: Compile and package your infrastructure code
+- **Test**: Run automated tests on your configuration
+- **Deploy**: Apply changes to your infrastructure
+- **Validate**: Verify deployment success
+- **Cleanup**: Remove temporary resources
+
+> Pro Tip: Start with simple pipelines and gradually add complexity as your team becomes familiar with the platform.
+
+### Common Actions
+
+- **Run Pipeline**: Execute the pipeline immediately
+- **Schedule Pipeline**: Set up recurring deployments
+- **Manual Approval**: Require approval before certain stages
+- **Rollback**: Revert to previous infrastructure state` },
+      { id: 'hub', title: 'Hub', content: 'Access the Infraglide Hub to discover templates, integrations, and community resources.' },
+      { id: 'architecture', title: 'Architecture', content: 'Understand the Infraglide architecture, components, and how everything works together.' },
+      { id: 'manage-users', title: 'Manage Users', content: 'Add users to your team, manage roles, permissions, and set up team collaboration features.' },
+      { id: 'deployed-resources', title: 'Deployed Resources', content: 'View, manage, and monitor all your deployed resources across your infrastructure.' }
     ]
   },
   {
-    id: 'guides',
-    title: 'Guides',
+    id: 'my-pipelines',
+    title: 'My Pipeline',
     subsections: [
-      { id: 'deploy-infra', title: 'Deploying Infrastructure', content: 'Learn how to deploy infrastructure resources using Infraglide templates and configurations.' },
-      { id: 'manage-envs', title: 'Managing Environments', content: 'Create and manage multiple environments (dev, staging, production) for your applications.' },
-      { id: 'templates', title: 'Working with Templates', content: 'Use pre-built templates and create custom templates for your infrastructure needs.' },
-      { id: 'monitoring', title: 'Monitoring & Alerts', content: 'Set up monitoring, create dashboards, and configure alerts for your infrastructure.' },
-      { id: 'security', title: 'Security Best Practices', content: 'Implement security best practices including encryption, access control, and compliance.' },
-      { id: 'scaling', title: 'Scaling Your Infrastructure', content: 'Scale your infrastructure horizontally and vertically with automatic scaling policies.' }
-    ]
-  },
-  {
-    id: 'api-reference',
-    title: 'API Reference',
-    subsections: [
-      { id: 'api-overview', title: 'API Overview', content: 'REST API overview, base URLs, and general conventions used throughout the Infraglide API.' },
-      { id: 'authentication', title: 'Authentication', content: 'Authenticate API requests using API keys, OAuth 2.0, or JWT tokens.' },
-      { id: 'endpoints', title: 'Endpoints', content: 'Complete reference of all available API endpoints with request/response examples.' },
-      { id: 'webhooks', title: 'Webhooks', content: 'Configure webhooks to receive real-time notifications of infrastructure events.' }
-    ]
-  },
-  {
-    id: 'advanced',
-    title: 'Advanced Topics',
-    subsections: [
-      { id: 'custom-scripts', title: 'Custom Scripts', content: 'Write custom scripts to automate infrastructure operations and deployments.' },
-      { id: 'integrations', title: 'Integrations', content: 'Integrate Infraglide with your existing tools: CI/CD, monitoring, ticketing systems.' },
-      { id: 'terraform', title: 'Terraform Integration', content: 'Import existing Terraform configurations and manage them with Infraglide.' },
-      { id: 'performance', title: 'Performance Tuning', content: 'Optimize your deployments and reduce infrastructure costs with our tuning guide.' }
-    ]
-  },
-  {
-    id: 'resources',
-    title: 'Resources',
-    subsections: [
-      { id: 'faq', title: 'FAQ', content: 'Frequently asked questions about Infraglide, features, pricing, and support.' },
-      { id: 'examples', title: 'Code Examples', content: 'Ready-to-use code examples for common use cases and infrastructure patterns.' },
-      { id: 'community', title: 'Community', content: 'Join our community forum, GitHub discussions, and connect with other users.' },
-      { id: 'support', title: 'Support', content: 'Get help from our support team, access documentation, and find known issues.' }
+        { id: 'pipelines-overview', title: 'Purpose and Audience', content: `## Purpose and Audience
+
+Use the **My Pipelines** dashboard to discover, filter, and act on infrastructure pipelines across cloud providers. It's designed for:
+
+- **Platform Engineers**: Manage infrastructure provisioning and lifecycle
+- **DevOps Practitioners**: Monitor deployments and pipeline status
+- **Developers**: Create and manage infrastructure workflows
+
+### Key Responsibilities
+
+Who manages lifecycle actions:
+- Create new pipelines
+- Export pipeline definitions
+- Run pipeline diffs
+- Open and view pipelines
+- Rename pipelines
+- Delete obsolete pipelines
+
+Monitor deployment status and pipeline health continuously.` },
+      { id: 'high-level-overview', title: 'High-level Overview', content: `## High-level Overview
+
+### Global Controls
+
+**Search Pipelines**
+- Quickly locate pipelines by name or keyword
+- Supports incremental narrowing of results as you type
+- Great for finding specific infrastructure configurations
+
+**Provider Filter (All, AWS, Azure, GCP)**
+- Toggle between All, AWS, Azure, and GCP
+- Focus on a specific cloud context or view everything at once
+- Filter by multiple providers simultaneously
+
+**Create Pipeline**
+- Starts a guided flow to define and initialize a new pipeline
+- Use when onboarding a service or provisioning new infrastructure
+- Step-by-step configuration wizard
+
+### Dashboard Components
+
+**Pipeline Overview**
+- Displays total pipeline count
+- Shows pipeline statistics and health overview
+
+**Main Table**
+Lists all pipelines with columns:
+- Name
+- Provider
+- Description
+- Deployment Status
+- Created At
+- Actions` },
+      { id: 'key-ui-elements', title: 'Key UI Elements - Pipeline List and Columns', content: `## Key UI Elements - Pipeline List and Columns
+
+### Pipeline Name
+- **Purpose**: Primary identifier for the pipeline
+- **Feature**: Expandable to reveal version/context-specific actions
+- **Available Actions**:
+  - Export
+  - Open in Canvas
+  - Pipeline Diff
+  - Delete
+- **Versioning**: When you edit and save with new changes, Version increments from V1 to V2
+
+### Provider
+- Cloud vendor associated with the pipeline (e.g., GCP, AWS, Azure)
+- Helpful for sorting and scoping operational tasks
+- Enables multi-cloud management
+
+### Description
+- Optional free-text context field
+- Add concise, actionable descriptions to assist teammates
+- Improves discoverability and clarifies intent
+
+### Deployment Status
+- Operational state such as **Destroyed** or **Pending**
+- Use this to triage attention:
+  - **Pending**: May need monitoring
+  - **Destroyed**: Indicates teardown complete
+  - **Active**: Pipeline is running
+  - **Failed**: Pipeline encountered an error
+
+### Created At
+- Timestamp of pipeline creation
+- Useful for auditing and lifecycle insights
+- Track infrastructure deployment history
+
+### Actions
+- Common per-row actions include **Rename** for quick retitling
+- Expanded rows surface additional context-specific actions
+- Quick access to frequently used operations` },
+      { id: 'example-pipelines', title: 'Example Pipelines Observed', content: `## Example Pipelines Observed
+
+The following examples illustrate typical entries and states visible in the dashboard:
+
+| Pipeline Name | Provider | Deployment Status | Created At |
+|---------------|----------|-------------------|-----------|
+| **<GCP Resource>** | GCP | Destroyed | Feb 3, 2026 |
+| **<AWS resource>** | AWS | Pending | Feb 3, 2026 |
+| **<Azure Resource>** | Azure | Destroyed | Feb 3, 2026 |
+
+### Understanding the Examples
+
+**<GCP Resource>**
+- Successfully deployed and torn down
+- Historical record for audit purposes
+- Safe to delete once verified
+
+**<AWS resource>**
+- Currently provisioning or pending action
+- Requires monitoring and attention
+- May take time to complete deployment
+
+**<Azure Resource>**
+- Deployment completed and resources destroyed
+- Clean state ready for new deployments
+- Can be reused or archived` },
+      { id: 'common-actions', title: 'Common Actions and When to Use Them', content: `## Common Actions and When to Use Them
+
+### Rename
+- **When to Use**: Apply clear, human-readable names
+- **Benefits**:
+  - Improve searchability
+  - Reduce confusion with autogenerated identifiers
+  - Aid team collaboration
+- **Example**: Change from "pipeline-123" to "production-api-deployment"
+
+### Export
+- **When to Use**: Capture pipeline definition or artifact
+- **Use Cases**:
+  - Backups and disaster recovery
+  - Code reviews
+  - Migrations between environments
+  - Documentation and auditing
+
+### Open in Canvas
+- **When to Use**: Visualize the pipeline topology
+- **Purpose**:
+  - Validate architecture
+  - Review dependencies
+  - Inspect resource relationships
+- **Result**: Opens in New Pipeline Canvas for detailed view
+
+### Pipeline Diff
+- **When to Use**: Compare versions before applying changes
+- **Shows**:
+  - Resource additions
+  - Resource deletions
+  - Configuration changes
+- **Action**: Approve with confidence before updates
+
+### Delete
+- **When to Use**: Remove obsolete pipelines
+- **Benefits**:
+  - Keep inventory clean
+  - Reduce operational noise
+  - Improve dashboard clarity
+- **Caution**: Verify teardown is complete before deletion` },
+      { id: 'operational-workflow', title: 'Operational Workflow (Suggested)', content: `## Operational Workflow (Suggested)
+
+Follow this workflow for optimal pipeline management:
+
+### Step 1: Search or Filter
+Search or filter to narrow to the relevant cloud provider and target pipeline
+- Use the search bar for quick lookups
+- Apply provider filter to focus on specific clouds
+- Use tags/labels for categorization
+
+### Step 2: Expand and Review
+Expand the pipeline row to access version-specific actions and artifacts
+- Review pipeline configuration
+- Check version history
+- Verify deployment status
+
+### Step 3: Run Diff Analysis
+Run Pipeline Diff to verify changes; if acceptable, proceed with your deployment workflow
+- Compare versions before deployment
+- Review what's changing
+- Ensure changes align with requirements
+
+### Step 4: Visual Validation
+Use Open in Canvas to visually validate dependencies and architecture
+- See resource relationships
+- Identify potential issues
+- Validate infrastructure design
+
+### Step 5: Backup and Deploy
+Export for backup or review, then apply/monitor until the desired status is reached
+- Export pipeline definition
+- Apply changes to infrastructure
+- Monitor deployment progress
+- Track to completion` },
+      { id: 'troubleshooting-tips', title: 'Troubleshooting and Tips', content: `## Troubleshooting and Tips
+
+### Issue: Pending for too long
+
+**Symptoms**
+- Pipeline stuck in "Pending" state
+- No progress for extended period
+
+**Solutions**
+- ✅ Check pipeline logs for errors
+- ✅ Validate cloud provider credentials
+- ✅ Verify appropriate permissions
+- ✅ Ensure provider quotas are sufficient
+- ✅ Check network connectivity
+- ✅ Review resource constraints
+
+### Issue: Destroyed but resources remain
+
+**Symptoms**
+- Pipeline shows "Destroyed" status
+- Resources still visible in cloud console
+
+**Solutions**
+- ✅ Confirm finalizers/cleanup hooks
+- ✅ Reconcile via provider console
+- ✅ Detect stragglers manually
+- ✅ Check for orphaned resources
+- ✅ Review cleanup scripts
+
+### Issue: Inconsistent names
+
+**Symptoms**
+- Pipeline names don't follow conventions
+- Difficulty finding pipelines
+- Team confusion about pipeline purpose
+
+**Solutions**
+- ✅ Standardize via Rename function
+- ✅ Update references in downstream systems
+- ✅ Avoid broken links
+- ✅ Establish naming conventions
+- ✅ Document naming standards
+
+### Pro Tips
+
+> 💡 **Tip 1**: Create a naming convention for your team (e.g., \`env-service-region\`)
+> 
+> 💡 **Tip 2**: Use descriptions to document pipeline purpose and dependencies
+> 
+> 💡 **Tip 3**: Regularly archive destroyed pipelines to keep dashboard clean
+> 
+> 💡 **Tip 4**: Set up alerts for pending pipelines that exceed time thresholds` },
+      { id: 'pipelines-faq', title: 'FAQ', content: `## Frequently Asked Questions
+
+### Q: How do I quickly find all GCP pipelines?
+
+**A:** Use the Provider Filter and select **GCP**. Combine with the search bar to further narrow by name or keyword. You can also:
+- Filter by status (Pending, Destroyed, Active)
+- Use pipeline tags if available
+- Sort by creation date or name
+
+### Q: When should I use Pipeline Diff?
+
+**A:** Use Pipeline Diff **before any apply/update operation**. It:
+- Surfaces resource adds, deletes, and changes
+- Shows configuration modifications
+- Allows you to approve with confidence
+- Prevents accidental infrastructure changes
+- Documents what will change
+
+**Best Practice**: Always review diffs in development/staging before production.
+
+### Q: Is it safe to delete a pipeline once it shows Destroyed?
+
+**A:** Yes, if you:
+1. ✅ Verify teardown is complete
+2. ✅ Confirm no dependent services require the artifacts
+3. ✅ Check that all resources are actually destroyed
+4. ✅ Export the definition before deletion for audit history
+5. ✅ Have backup records if needed
+
+**Recommendation**: Export pipeline definitions before deletion for compliance and audit trails.
+
+### Q: Can I edit a pipeline after it's created?
+
+**A:** Yes! You can:
+- Modify pipeline stages
+- Change resource configurations
+- Update environment variables
+- Add or remove steps
+- Save changes (increments version number)
+
+### Q: What happens to my resources if I delete a pipeline?
+
+**A:** If the pipeline is in **Destroyed** status, the infrastructure resources should already be torn down. Deleting the pipeline only removes the pipeline definition from Infraglide, not your cloud resources.
+
+**Warning**: Only delete pipelines that have successfully completed teardown.
+
+### Q: How do I export a pipeline?
+
+**A:** 
+1. Expand the pipeline row
+2. Click the **Export** action
+3. Choose format (TF, JSON, YAML)
+4. Save locally or share with team
+5. Import into another Infraglide instance if needed` }
     ]
   }
 ];
@@ -431,20 +807,38 @@ export default function Docs() {
                     }`}
                   >
                     <h3 className="text-2xl font-bold mb-4 text-gray-900">{subsection.title}</h3>
-                    <p className="text-gray-700 mb-6 leading-relaxed">{subsection.content}</p>
-                    
-                    {/* Code Example */}
-                    <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4">
-                      <pre className="text-sm font-mono">
-{`# Example: ${subsection.title.toLowerCase().replace(/\s+/g, '-')}
-$ infraglide ${subsection.id}
-
-✓ Operation completed successfully
-✓ Resources created and configured
-✓ Ready for deployment`}
-                      </pre>
+                    <div className="text-gray-700 mb-6 leading-relaxed prose prose-sm max-w-none">
+                      <ReactMarkdown
+                        components={{
+                          h1: ({node, ...props}) => <h1 className="text-3xl font-bold mt-6 mb-4 text-gray-900" {...props} />,
+                          h2: ({node, ...props}) => <h2 className="text-2xl font-bold mt-5 mb-3 text-gray-900" {...props} />,
+                          h3: ({node, ...props}) => <h3 className="text-xl font-bold mt-4 mb-2 text-gray-900" {...props} />,
+                          h4: ({node, ...props}) => <h4 className="text-lg font-bold mt-3 mb-2 text-gray-900" {...props} />,
+                          p: ({node, ...props}) => <p className="mb-4 text-gray-700" {...props} />,
+                          ul: ({node, ...props}) => <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700" {...props} />,
+                          ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700" {...props} />,
+                          li: ({node, ...props}) => <li className="text-gray-700" {...props} />,
+                          strong: ({node, ...props}) => <strong className="font-bold text-gray-900" {...props} />,
+                          em: ({node, ...props}) => <em className="italic text-gray-700" {...props} />,
+                          code: ({node, inline, ...props}) => 
+                            inline ? 
+                              <code className="bg-gray-100 text-red-600 px-2 py-1 rounded text-sm font-mono" {...props} /> :
+                              <code className="block bg-gray-100 p-4 rounded-lg text-gray-900 font-mono text-sm overflow-x-auto mb-4" {...props} />,
+                          pre: ({node, ...props}) => <pre className="block bg-gray-900 p-4 rounded-lg text-gray-100 font-mono text-sm overflow-x-auto mb-4" {...props} />,
+                          blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-purple-600 pl-4 italic text-gray-600 mb-4" {...props} />,
+                          img: ({node, ...props}) => <img className="max-w-full h-auto rounded-lg my-4" {...props} />,
+                          a: ({node, ...props}) => <a className="text-purple-600 hover:text-purple-800 underline" {...props} />,
+                          table: ({node, ...props}) => <table className="w-full border-collapse border border-gray-300 mb-4" {...props} />,
+                          thead: ({node, ...props}) => <thead className="bg-gray-100" {...props} />,
+                          tbody: ({node, ...props}) => <tbody {...props} />,
+                          th: ({node, ...props}) => <th className="border border-gray-300 px-3 py-2 text-left font-bold" {...props} />,
+                          td: ({node, ...props}) => <td className="border border-gray-300 px-3 py-2" {...props} />,
+                        }}
+                      >
+                        {subsection.content}
+                      </ReactMarkdown>
                     </div>
-
+                    
                     {activeSubsection === idx && (
                       <motion.button
                         initial={{ opacity: 0, scale: 0.9 }}
