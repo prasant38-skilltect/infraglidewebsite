@@ -1,0 +1,15 @@
+<!-- 404.html for GitHub Pages SPA redirect -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=/infraglidewebsite/" />
+    <script>
+      // For client-side routing: redirect to index.html and preserve path
+      var l = window.location;
+      var path = l.pathname.replace(/^\/infraglidewebsite/, '');
+      var newUrl = '/infraglidewebsite/index.html' + (path ? ('#' + path) : '') + l.search + l.hash;
+      window.location.replace(newUrl);
+    </script>
+  </head>
+  <body></body>
+</html>
