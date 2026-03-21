@@ -1336,9 +1336,14 @@ export default function Docs() {
         <div key={section.id}>
           <button
             onClick={() => {
-              setActiveSection(section.id);
+            // ✅ TOGGLE LOGIC ADDED HERE
+            if (activeSection === section.id) {
+              setActiveSection(null); // collapse if already open
+            } else {
+              setActiveSection(section.id); // expand
               setActiveSubsection(0);
-            }}
+            }
+          }}
             className={`block w-full text-left px-4 py-2 rounded-lg font-semibold transition ${
               activeSection === section.id
                 ? 'bg-purple-600 text-white'
