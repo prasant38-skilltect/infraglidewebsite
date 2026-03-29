@@ -179,7 +179,7 @@ export default function FreeTrial() {
             {[
               {
                 icon: '✓',
-                title: '14 Days Free',
+                title: '7 Days Free',
                 desc: 'Full access to all features'
               },
               {
@@ -192,16 +192,16 @@ export default function FreeTrial() {
                 title: 'All Features Unlocked',
                 desc: 'Access premium features during trial'
               },
-              {
-                icon: '✓',
-                title: 'Priority Support',
-                desc: 'Get help from our support team'
-              },
-              {
-                icon: '✓',
-                title: 'Easy Cancellation',
-                desc: 'Cancel anytime, no questions asked'
-              },
+              // {
+              //   icon: '✓',
+              //   title: 'Priority Support',
+              //   desc: 'Get help from our support team'
+              // },
+              // {
+              //   icon: '✓',
+              //   title: 'Easy Cancellation',
+              //   desc: 'Cancel anytime, no questions asked'
+              // },
               {
                 icon: '✓',
                 title: 'Multi-Cloud Support',

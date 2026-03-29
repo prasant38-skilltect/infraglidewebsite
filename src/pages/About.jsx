@@ -93,10 +93,14 @@ export default function About() {
         <h2 className="text-4xl font-bold mb-12 text-center">Meet Our Team</h2>
         <div className="grid md:grid-cols-4 gap-8">
           {[
-            { name: 'Manish Sharma', role: 'CEO & Co-founder' },
-            { name: 'XXXX-XXXX', role: 'CTO & Co-founder' },
-            { name: 'XXXX-XXXX', role: 'VP Engineering' },
-            { name: 'XXXX-XXXX', role: 'VP Product' }
+            { name: 'Umesh Sharma', role: 'Managing Director' },
+            { name: 'Manish Sharma', role: 'Founder & CEO' },
+            { name: 'Monika Sharma', role: 'Head of Engineering' },
+            { name: 'Ravindra Sharma', role: 'Head of Marketing' },
+            { name: 'Nakshtra Singh Bhati', role: 'Engineering Manager' },
+            { name: 'Harsh Shrivastav', role: 'Engineering Manager' },
+            { name: 'Kamal Gaur', role: 'Engineering Manager' },
+            { name: 'Sunil Kumar', role: 'Chief Sales Officer' }
           ].map((member, idx) => (
             <motion.div
               key={idx}
@@ -105,11 +109,51 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.4 + idx * 0.1 }}
               className="text-center"
             >
-              <div className="bg-gradient-to-br from-blue-400 to-purple-400 w-32 h-32 rounded-full mx-auto mb-4"></div>
+              <img
+                src={`https://ui-avatars.com/api/?name=${member.name.replace(/\s+/g, '+')}&background=random&color=fff&size=128`}
+                alt={member.name}
+                className="w-32 h-32 rounded-full mx-auto mb-4 shadow-md object-cover"
+              />
               <h3 className="text-xl font-bold">{member.name}</h3>
               <p className="text-gray-600">{member.role}</p>
             </motion.div>
           ))}
+        </div>
+      </motion.section>
+
+      {/* Guiding Build Team Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="bg-gradient-to-r from-blue-50 to-purple-50 w-screen -mx-6 px-6 py-24"
+      >
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl font-bold mb-12 text-center">Guiding Build Team</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            {[
+              { name: 'Mukesh Purohit', role: 'CTO' },
+              { name: 'Prashant Kumar Jinega', role: 'Mentor' }
+            ].map((member, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <img
+                  src={`https://ui-avatars.com/api/?name=${member.name.replace(/\s+/g, '+')}&background=random&color=fff&size=256`}
+                  alt={member.name}
+                  className="w-48 h-48 rounded-lg mx-auto mb-6 shadow-lg object-cover"
+                />
+                <h3 className="text-2xl font-bold text-gray-900">{member.name}</h3>
+                <p className="text-lg text-gray-600 mt-2">{member.role}</p>
+                <p className="text-gray-500 mt-3 max-w-sm">Leading the technical vision and strategic guidance for our platform development</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </motion.section>
     </div>

@@ -437,51 +437,128 @@ export default function Home() {
                 </ul>
               </div>
             </motion.div>
-          ))}
+          ))}  
         </motion.div>
+      </motion.section>
 
-        {/* Pricing FAQ */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-16 max-w-2xl mx-auto"
-        >
-          <h3 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h3>
-          <div className="space-y-6">
+      {/* Team Section */}}
+      <motion.section
+        id="team"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="max-w-7xl mx-auto px-6 py-24"
+      >
+        <h2 className="text-4xl font-bold mb-12 text-center">Meet Our Team</h2>
+        <div className="grid md:grid-cols-4 gap-8">
+          {[
+            { name: 'Umesh Sharma', role: 'Managing Director' },
+            { name: 'Manish Sharma', role: 'Founder & CEO' },
+            { name: 'Monika Sharma', role: 'Head of Engineering' },
+            { name: 'Ravindra Sharma', role: 'Head of Marketing' },
+            { name: 'Nakshtra Singh Bhati', role: 'Engineering Manager' },
+            { name: 'Harsh Shrivastav', role: 'Engineering Manager' },
+            { name: 'Kamal Gaur', role: 'Engineering Manager' },
+            { name: 'Sunil Kumar', role: 'Chief Sales Officer' }
+          ].map((member, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 + idx * 0.1 }}
+              className="text-center"
+            >
+              <img
+                src={`https://ui-avatars.com/api/?name=${member.name.replace(/\s+/g, '+')}&background=random&color=fff&size=128`}
+                alt={member.name}
+                className="w-32 h-32 rounded-full mx-auto mb-4 shadow-md object-cover"
+              />
+              <h3 className="text-xl font-bold">{member.name}</h3>
+              <p className="text-gray-600">{member.role}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Guiding Build Team Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="bg-gradient-to-r from-blue-50 to-purple-50 w-screen -mx-6 px-6 py-24"
+      >
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl font-bold mb-12 text-center">Guiding Build Team</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
             {[
-              {
-                q: 'Can I switch plans anytime?',
-                a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the next billing cycle.'
-              },
-              {
-                q: 'Do you offer annual billing discounts?',
-                a: 'Yes! Save 20% when you choose annual billing instead of monthly.'
-              },
-              {
-                q: 'What payment methods do you accept?',
-                a: 'We accept all major credit cards, wire transfer, and ACH for Enterprise customers.'
-              },
-              {
-                q: 'Is there a free trial?',
-                a: 'Absolutely! Get 14 days free to explore all features with no credit card required.'
-              }
-            ].map((faq, i) => (
+              { name: 'Mukesh Purohit', role: 'CTO' },
+              { name: 'Prashant Kumar Jinega', role: 'Mentor' }
+            ].map((member, idx) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className="p-4 bg-gray-50 rounded-lg"
+                className="text-center"
               >
-                <p className="font-semibold text-lg mb-2">{faq.q}</p>
-                <p className="text-gray-700">{faq.a}</p>
+                <img
+                  src={`https://ui-avatars.com/api/?name=${member.name.replace(/\s+/g, '+')}&background=random&color=fff&size=256`}
+                  alt={member.name}
+                  className="w-48 h-48 rounded-lg mx-auto mb-6 shadow-lg object-cover"
+                />
+                <h3 className="text-2xl font-bold text-gray-900">{member.name}</h3>
+                <p className="text-lg text-gray-600 mt-2">{member.role}</p>
+                <p className="text-gray-500 mt-3 max-w-sm">Leading the technical vision and strategic guidance for our platform development</p>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
+      </motion.section>
+
+      {/* FAQ Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="max-w-4xl mx-auto px-6 py-24"
+      >
+        <h2 className="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+        <div className="space-y-6">
+          {[
+            {
+              q: 'Can I switch plans anytime?',
+              a: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the next billing cycle.'
+            },
+            {
+              q: 'Do you offer annual billing discounts?',
+              a: 'Yes! Save 20% when you choose annual billing instead of monthly.'
+            },
+            {
+              q: 'What payment methods do you accept?',
+              a: 'We accept all major credit cards, wire transfer, and ACH for Enterprise customers.'
+            },
+            {
+              q: 'Is there a free trial?',
+              a: 'Absolutely! Get 7 days free to explore all features with no credit card required.'
+            }
+          ].map((faq, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="p-4 bg-gray-50 rounded-lg"
+            >
+              <p className="font-semibold text-lg mb-2">{faq.q}</p>
+              <p className="text-gray-700">{faq.a}</p>
+            </motion.div>
+          ))}
+        </div>
       </motion.section>
 
       {/* CTA Section */}

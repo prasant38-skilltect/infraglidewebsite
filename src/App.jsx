@@ -15,6 +15,7 @@ import Careers from './pages/Careers';
 import Terms from './pages/Terms';
 import Security from './pages/Security';
 import Status from './pages/Status';
+import Changelog from './pages/Changelog';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -48,6 +49,7 @@ function App() {
             <Route path="/free-trial" element={<FreeTrial />} />
             <Route path="/demo" element={<DemoRequest />} />
             <Route path="/docs" element={<Docs />} />
+            <Route path="/changelog" element={<Changelog />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/about" element={<About />} />
