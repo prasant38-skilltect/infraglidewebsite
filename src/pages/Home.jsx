@@ -348,40 +348,56 @@ export default function Home() {
           {[
             {
               name: 'Standard',
-              price: '$49',
-              period: '/month',
+              price: '$99',
+              period: 'Per Month Per User',
               description: 'Perfect for growing teams',
               features: [
-                'Multi-cloud support (AWS, Azure, GCP)',
-                'Real-time monitoring & analytics',
-                'Email support',
-                'Community support',
-                'Working hours support (9-5 EST)',
-                'API access',
-                'Up to 5 team members',
-                'Monthly reports',
-                'Basic integrations'
+                'Unlimited cloud architectures',
+                'Unlimited Terraform code generation',
+                'Access to all supported cloud providers - AWS, Azure, GCP',
+                'Access to public templates',
+                'Support of public and private Terraform modules',
+                'Unlimited Folders, Projects & Users',
+                'Native architecture versioning',
+                'Remote Git integration',
+                'Remote backend',
+                'RBAC',
+                'Unlimited deployments',
+                'Email Support during the working hours',
+                'Community Group Access',
+                'Manual Onboarding'
               ],
               cta: 'Start Free Trial',
               highlight: false
             },
             {
               name: 'Enterprise',
-              price: 'Custom',
-              period: 'pricing',
+              price: '$199',
+              period: 'Per Month Per User',
               description: 'For large-scale operations',
               features: [
-                'Everything in Standard, plus:',
-                'Dedicated Account Manager',
-                '24/7 Premium Support',
-                'Single Sign-On (SSO)',
-                'Advanced Security & Compliance',
-                'Custom Integrations',
-                'Advanced Analytics & Reporting',
-                'Unlimited team members',
-                'SLA guarantee',
-                'Custom workflows',
-                'Priority deployments'
+                'Account Manager',
+                'Dedicated Support',
+                'Chat Support',
+                'Audit Logging',
+                'SLA',
+                'Security & Compliance',
+                'SSO',
+                'Unlimited Code Base',
+                'Custom Integration',
+                'Team Collab',
+                'Private registry',
+                'Import Templates',
+                'Self-hosted or single tenant hosting',
+                'AI Provisioning',
+                'Terraform migration',
+                'Private onboarding',
+                'Dedicated support via Slack or Chats',
+                'Centralized Monitoring, Logging with Topology View',
+                'LDAP/AD Integration',
+                'HLD/LLD/Architecture Diagram',
+                'Cost Optimization Recommendations',
+                'Drift Detection'
               ],
               cta: 'Contact Sales',
               highlight: true
@@ -407,7 +423,7 @@ export default function Home() {
               <div className="mb-6">
                 <span className="text-5xl font-bold text-purple-600">{plan.price}</span>
                 {plan.period === '/month' && <span className="text-gray-600 text-lg">/{plan.period}</span>}
-                {plan.period === 'pricing' && <span className="text-gray-600 text-lg ml-2">{plan.period}</span>}
+                {plan.period !== '/month' && <span className="text-gray-600 text-lg ml-2">{plan.period}</span>}
               </div>
               <Link
                 to={plan.cta === 'Start Free Trial' ? '/free-trial' : '/contact'}
